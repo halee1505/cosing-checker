@@ -1,11 +1,12 @@
 {
-  "name": "ingredients-checker",
+  "name": "cosing-checker",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Halee1505.github.io/cosing-checker/#",
+  "homepage": ".",
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.5.0",
     "@mui/material": "^6.1.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -14,7 +15,6 @@
     "@types/node": "^16.18.112",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
-    "file-system": "^2.2.2",
     "firebase": "^10.14.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -35,7 +35,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "react-scripts build",
-    "deploy": "react-scripts build && gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "web": "react-scripts start",
+    "build:web": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
@@ -59,14 +61,14 @@
     "concurrently": "^9.0.1",
     "electron": "^32.1.2",
     "electron-builder": "^25.0.5",
-    "gh-pages": "^6.1.1"
+    "gh-pages": "^6.1.1",
+    "wait-on": "^8.0.5"
   },
   "build": {
-    "appId": "com.example.myapp",
-    "productName": "Ingredients Checker",
+    "appId": "io.github.halee1505.cosingchecker",
+    "productName": "CosIng Checker",
     "files": [
-      "build/**/*",
-      "public/electron.js"
+      "build/**/*"
     ],
     "win": {
       "target": "nsis"
@@ -76,6 +78,9 @@
     },
     "linux": {
       "target": "AppImage"
+    },
+    "extraMetadata": {
+      "main": "build/electron.js"
     }
   }
 }

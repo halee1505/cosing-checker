@@ -1,47 +1,46 @@
-# Getting Started with Create React App
+# CosIng Checker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Kiểm tra thành phần mỹ phẩm theo cơ sở dữ liệu [CosIng](https://ec.europa.eu/growth/tools-databases/cosing/) của EU và các Annex của Quy định (EC) 1223/2009.
 
-## Available Scripts
+- **Kiểm tra công thức**: tải file Excel (hoặc dán danh sách), tự nhận diện cột tên / CAS / %, hỗ trợ nhiều sản phẩm trong một sheet, tick chọn dòng, xuất kết quả ra Excel.
+- **Tra cứu nhanh**: tìm theo tên INCI hoặc theo mã CAS / EC.
 
-In the project directory, you can run:
+Trang tĩnh, chạy trên GitHub Pages: https://halee1505.github.io/cosing-checker/
 
-### `npm start`
+## Chạy local
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+npm install
+npm run web
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Mở http://localhost:3000. Đăng nhập bằng tài khoản Firebase của dự án.
 
-### `npm test`
+## Deploy lên GitHub Pages
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm run deploy
+```
 
-### `npm run build`
+Lệnh này build bản web vào `build/` rồi đẩy lên nhánh `gh-pages`. App dùng `HashRouter` và `"homepage": "."`, nên chạy được ở đường dẫn con `/cosing-checker/` mà không cần cấu hình thêm.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Lưu ý:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Không đổi sang `BrowserRouter`: GitHub Pages không có rewrite, tải lại trang sẽ ra 404.
+- Mọi file tĩnh phải tham chiếu bằng đường dẫn tương đối (`./...` hoặc `process.env.PUBLIC_URL`).
+- Domain `halee1505.github.io` phải nằm trong **Authorized domains** của Firebase Authentication.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Kiểm tra
 
-### `npm run eject`
+```bash
+npm test
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## App desktop (Electron)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start        # web + cửa sổ Electron khi phát triển
+npm run build    # build web rồi đóng gói bằng electron-builder
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-# cosing-checker
+Nguồn dữ liệu: European Commission – CosIng. Kết quả chỉ để tham khảo; CosIng không có giá trị pháp lý.

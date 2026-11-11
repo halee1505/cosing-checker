@@ -1,35 +1,42 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { app, BrowserWindow, shell } = require("electron");
+const path = require("path");
+
+// In development (`npm start`) load the CRA dev server; the packaged app
+// loads the static build.
+const DEV_URL = process.env.ELECTRON_START_URL || "http://localhost:3000";
 
 function createWindow() {
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+  const win = new BrowserWindow({
+    width: 1280,
+    height: 860,
+    minWidth: 900,
+    minHeight: 600,
+    title: "CosIng Checker",
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
-      nodeIntegration: false
-    }
+      nodeIntegration: false,
+    },
   });
 
-  // Sử dụng file tĩnh đã build thay vì chạy từ localhost
-  const startUrl = path.join(__dirname, '..', 'build', 'index.html');
-  mainWindow.loadFile(startUrl); // Thay thế dòng này với file build
+  if (app.isPackaged) {
+    win.loadFile(path.join(__dirname, "..", "build", "index.html"));
+  } else {
+    win.loadURL(DEV_URL);
+  }
 
-  // Tùy chọn mở Developer Tools nếu cần
-  // mainWindow.webContents.openDevTools();
+  // Links such as CosIng pages and SCCS opinions open in the system browser.
+  win.webContents.setWindowOpenHandler(({ url }) => {
+    if (/^https?:\/\//.test(url)) shell.openExternal(url);
+    return { action: "deny" };
+  });
 }
 
-app.on('ready', createWindow);
+app.whenReady().then(createWindow);
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
 });
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });

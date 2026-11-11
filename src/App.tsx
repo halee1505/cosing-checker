@@ -1,46 +1,32 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import LoginPage from "./components/Login"; // Example component
-import NavBar from "./components/Navbar";
-import ProtectedRoute from "./components/ProtectedRoutes";
-import ExcelReader from "./components/ReadData";
-import ResetPasswordPage from "./components/ResetPassword";
-import HomePage from "./components/Home";
-import Register from "./components/Register";
-import ForgotPasswordPage from "./components/Forgot";
+import { Navigate, Route, Routes } from "react-router-dom";
+import AppShell from "./components/AppShell";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./pages/auth/Login";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import QuickSearch from "./pages/QuickSearch";
+import BatchCheck from "./pages/BatchCheck";
+import ChangePassword from "./pages/ChangePassword";
 
-function App() {
-
+export default function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        {/* <Route path="/register" element={<Register />} /> */}
-        <Route
-          path="/reset"
-          element={
-            <ProtectedRoute>
-              <ResetPasswordPage />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/read"
-          element={
-            <ProtectedRoute>
-              <div>
-                <NavBar />
-                <ExcelReader />
-              </div>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route
+        element={
+          <ProtectedRoute>
+            <AppShell />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/search" element={<QuickSearch />} />
+        <Route path="/batch" element={<BatchCheck />} />
+        <Route path="/account/password" element={<ChangePassword />} />
+      </Route>
+      {/* Old links */}
+      <Route path="/read" element={<Navigate to="/batch" replace />} />
+      <Route path="/reset" element={<Navigate to="/account/password" replace />} />
+      <Route path="*" element={<Navigate to="/batch" replace />} />
+    </Routes>
   );
 }
-
-export default App;
