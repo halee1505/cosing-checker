@@ -117,6 +117,20 @@ describe("slash fragments", () => {
   });
 });
 
+describe("slash names", () => {
+  it("sends slashes as spaces and still reports an exact match", async () => {
+    const sent: string[] = [];
+    mockFetch((q) => {
+      sent.push(q.bool.must[0].text.query);
+      return [{ substanceId: ["5"], inciName: ["VP/EICOSENE COPOLYMER"], itemType: ["ingredient"] }];
+    });
+    const done = await checkIngredient(makeRow({ source: 1, name: "VP/Eicosene Copolymer", cas: "" }, 0), "name");
+    expect(sent[0]).toBe("VP Eicosene Copolymer");
+    expect(done.matchedBy).toEqual(["name"]);
+    expect(done.verdict).toBe("clear");
+  });
+});
+
 describe("pasted lists", () => {
   it("splits a packaging INCI list but keeps 1,2-Hexanediol whole", () => {
     const items = parsePastedList("Aqua, Glycerin, 1,2-Hexanediol, Salicylic Acid");

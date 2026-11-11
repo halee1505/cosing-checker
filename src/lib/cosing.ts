@@ -234,7 +234,14 @@ function sleep(ms: number, signal?: AbortSignal) {
 
 // ---------------------------------------------------------------- queries
 
-/** Raw name search: exactly what CosIng's "Name" box does. */
+/**
+ * CosIng's search never matches a query containing "/" (it returns 0 hits
+ * for "VP/Eicosene Copolymer"), but finds the same entry when the slashes
+ * are spaces. Names keep their slashes everywhere else in the app.
+ */
+export const toSearchText = (name: string) => name.replace(/\//g, " ").replace(/\s+/g, " ").trim();
+
+/** Raw name search: what CosIng's "Name" box does. */
 export function searchByNameRaw(name: string, signal?: AbortSignal) {
   return post(
     {
@@ -242,7 +249,7 @@ export function searchByNameRaw(name: string, signal?: AbortSignal) {
         must: [
           {
             text: {
-              query: name.trim(),
+              query: toSearchText(name),
               fields: NAME_FIELDS,
               defaultOperator: "AND",
             },
