@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/cosing-checker/static/css/main.ccf54d86.css",
-    "main.js": "/cosing-checker/static/js/main.c22bb80d.js",
-    "index.html": "/cosing-checker/index.html",
-    "main.ccf54d86.css.map": "/cosing-checker/static/css/main.ccf54d86.css.map",
-    "main.c22bb80d.js.map": "/cosing-checker/static/js/main.c22bb80d.js.map"
+    "main.css": "./static/css/main.1702033b.css",
+    "main.js": "./static/js/main.bd770297.js",
+    "index.html": "./index.html",
+    "main.1702033b.css.map": "./static/css/main.1702033b.css.map",
+    "main.bd770297.js.map": "./static/js/main.bd770297.js.map"
   },
   "entrypoints": [
-    "static/css/main.ccf54d86.css",
-    "static/js/main.c22bb80d.js"
+    "static/css/main.1702033b.css",
+    "static/js/main.bd770297.js"
   ]
 }

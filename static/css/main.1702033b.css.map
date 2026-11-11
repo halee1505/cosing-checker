@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.1702033b.css","mappings":"AAAA,gBAGE,eACF,CAEA,KACE,kCAAmC,CACnC,iCAAkC,CAClC,mCACF","sources":["index.css"],"sourcesContent":["html,\nbody,\n#root {\n  min-height: 100%;\n}\n\nbody {\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  font-feature-settings: \"cv08\", \"cv11\";\n}\n"],"names":[],"sourceRoot":""}
